@@ -117,4 +117,4 @@ robosub/scripts/logs/*.txt
 /#*\#
 .\#*
 
-images/
+/images/
