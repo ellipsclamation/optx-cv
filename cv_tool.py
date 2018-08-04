@@ -23,14 +23,32 @@ class App(QWidget):
         self.setWindowTitle(self.title)
 
         self.main_layout = QVBoxLayout(self)
+        self.layouts()
         self.top_section()
         self.bottom_section()
+        self.upper_bgr()
+        self.bottom_connections()
+        self.side_buttons()
+        # self.side_section()
+        # self.side_connections()
 
         self.showMaximized()
 
+    def layouts(self):
+        self.ll_top = QHBoxLayout()
+        self.main_layout.addLayout(self.ll_top)
+        self.ll_bot = QHBoxLayout()
+        self.main_layout.addLayout(self.ll_bot)
+        self.ll_spinners = QGridLayout()
+        self.ll_spinners.setHorizontalSpacing(3)
+        self.ll_spinners.setHorizontalSpacing(2)
+        self.ll_bot.addLayout(self.ll_spinners)
+        self.ll_side_buttons = QVBoxLayout()
+        self.ll_bot.addLayout(self.ll_side_buttons)
+
     def top_section(self):
-        self.top_layout = QHBoxLayout()
-        self.main_layout.addLayout(self.top_layout)
+        # self.ll_top = QHBoxLayout()
+        # self.main_layout.addLayout(self.ll_top)
 
         self.display0 = QImage(self.controller.img0, self.controller.img_width, self.controller.img_height, self.controller.byteValue, QImage.Format_RGB888)
         self.display1 = QImage(self.controller.img1, self.controller.img_width, self.controller.img_height, self.controller.byteValue, QImage.Format_RGB888)
@@ -40,30 +58,30 @@ class App(QWidget):
         self.pixmap0 = QPixmap(self.display0)
         self.label0 = QLabel()
         self.label0.setPixmap(self.pixmap0)
-        self.top_layout.addWidget(self.label0)
+        self.ll_top.addWidget(self.label0)
 
         self.pixmap1 = QPixmap(self.display1)
         self.label1 = QLabel()
         self.label1.setPixmap(self.pixmap1)
-        self.top_layout.addWidget(self.label1)
+        self.ll_top.addWidget(self.label1)
 
         self.pixmap2 = QPixmap(self.display2)
         self.label2 = QLabel()
         self.label2.setPixmap(self.pixmap2)
-        self.top_layout.addWidget(self.label2)
+        self.ll_top.addWidget(self.label2)
 
         # self.top_connections()
 
     def bottom_section(self):
-        self.bottom_layout = QGridLayout()
-        self.bottom_layout.setHorizontalSpacing(4)
-        self.bottom_layout.setHorizontalSpacing(2)
-        self.main_layout.addLayout(self.bottom_layout)
+        # self.ll_spinners = QGridLayout()
+        # self.ll_spinners.setHorizontalSpacing(4)
+        # self.ll_spinners.setHorizontalSpacing(2)
+        # self.main_layout.addLayout(self.ll_spinners)
 
-        # LOWER red
+        # LOWER RED
         self.red_layout = QVBoxLayout()
-        self.bottom_layout.addLayout(self.red_layout, 0, 0)
-        self.red_label = QLabel('red')
+        self.ll_spinners.addLayout(self.red_layout, 0, 0)
+        self.red_label = QLabel('LOWER RED')
         self.red_label.setMaximumSize(QtCore.QSize(100, 20))
         self.red_label.setAlignment(QtCore.Qt.AlignCenter)
         self.spn_red = QSpinBox()
@@ -78,8 +96,8 @@ class App(QWidget):
 
         # LOWER GREEN
         self.green_layout = QVBoxLayout()
-        self.bottom_layout.addLayout(self.green_layout, 0, 1)
-        self.green_label = QLabel('GREEN')
+        self.ll_spinners.addLayout(self.green_layout, 0, 1)
+        self.green_label = QLabel('LOWER GREEN')
         self.green_label.setMaximumSize(QtCore.QSize(100, 20))
         self.green_label.setAlignment(QtCore.Qt.AlignCenter)
         self.spn_green = QSpinBox()
@@ -92,10 +110,10 @@ class App(QWidget):
         self.green_layout.addWidget(self.green_label)
         self.green_layout.addWidget(self.spn_green)
 
-        # LOWER blue
+        # LOWER BLUE
         self.blue_layout = QVBoxLayout()
-        self.bottom_layout.addLayout(self.blue_layout, 0, 2)
-        self.blue_label = QLabel('blue')
+        self.ll_spinners.addLayout(self.blue_layout, 0, 2)
+        self.blue_label = QLabel('LOWER BLUE')
         self.blue_label.setMaximumSize(QtCore.QSize(100, 20))
         self.blue_label.setAlignment(QtCore.Qt.AlignCenter)
         self.spn_blue = QSpinBox()
@@ -108,18 +126,11 @@ class App(QWidget):
         self.blue_layout.addWidget(self.blue_label)
         self.blue_layout.addWidget(self.spn_blue)
 
-        self.upper_bgr()
-
-        self.bottom_connections()
-
-        # SIDE
-        # self.side_section()
-
     def upper_bgr(self):
-        # UPPER red
+        # UPPER RED
         self.upper_red_layout = QVBoxLayout()
-        self.bottom_layout.addLayout(self.upper_red_layout, 1, 0)
-        self.upper_red_label = QLabel('UPPER red')
+        self.ll_spinners.addLayout(self.upper_red_layout, 1, 0)
+        self.upper_red_label = QLabel('UPPER RED')
         self.upper_red_label.setMaximumSize(QtCore.QSize(100, 20))
         self.upper_red_label.setAlignment(QtCore.Qt.AlignCenter)
         self.spn_upper_red = QSpinBox()
@@ -134,7 +145,7 @@ class App(QWidget):
 
         # UPPER GREEN
         self.upper_green_layout = QVBoxLayout()
-        self.bottom_layout.addLayout(self.upper_green_layout, 1, 1)
+        self.ll_spinners.addLayout(self.upper_green_layout, 1, 1)
         self.upper_green_label = QLabel('UPPER GREEN')
         self.upper_green_label.setMaximumSize(QtCore.QSize(100, 20))
         self.upper_green_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -148,10 +159,10 @@ class App(QWidget):
         self.upper_green_layout.addWidget(self.upper_green_label)
         self.upper_green_layout.addWidget(self.spn_upper_green)
 
-        # UPPER blue
+        # UPPER BLUE
         self.upper_blue_layout = QVBoxLayout()
-        self.bottom_layout.addLayout(self.upper_blue_layout, 1, 2)
-        self.upper_blue_label = QLabel('UPPER blue')
+        self.ll_spinners.addLayout(self.upper_blue_layout, 1, 2)
+        self.upper_blue_label = QLabel('UPPER BLUE')
         self.upper_blue_label.setMaximumSize(QtCore.QSize(100, 20))
         self.upper_blue_label.setAlignment(QtCore.Qt.AlignCenter)
         self.spn_upper_blue = QSpinBox()
@@ -164,14 +175,21 @@ class App(QWidget):
         self.upper_blue_layout.addWidget(self.upper_blue_label)
         self.upper_blue_layout.addWidget(self.spn_upper_blue)
 
+    def side_buttons(self):
+        self.btn_mode = QPushButton('RGB')
+        self.btn_mode.setMaximumSize(QtCore.QSize(100, 100))
+        self.ll_side_buttons.addWidget(self.btn_mode)
+
+        self.btn_apply = QPushButton('Apply Changes')
+        self.btn_apply.setMaximumSize(QtCore.QSize(100, 100))
+        self.ll_side_buttons.addWidget(self.btn_apply)
+
     # def side_section(self):
-    #     self.side_layout = QVBoxLayout()
-    #     self.bottom_layout.addLayout(self.side_layout, 0, 3)
+    #     self.ll_side_buttons_buttons = QVBoxLayout()
+    #     self.ll_spinners.addLayout(self.ll_side_buttons_buttons, 0, 3)
 
     #     self.btn_test = QPushButton('test')
-    #     self.side_layout.addWidget(self.btn_test)
-
-        # self.side_connections()
+    #     self.ll_side_buttons_buttons.addWidget(self.btn_test)
 
     def bottom_connections(self):
         self.spn_red.valueChanged.connect(lambda: self.spinner_update(True))

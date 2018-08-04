@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from controller.preprocess import *
+from modules.preprocess import *
 
 class Controller():
 
@@ -34,10 +34,6 @@ class Controller():
     def filter(self):
         lower_thresh = np.array(self.lower_bgr)
         upper_thresh = np.array(self.upper_bgr)
-
-        # self.img0 = cv2.cvtColor(self.img0, cv2.COLOR_BGR2RGB)
-        # self.img1 = cv2.cvtColor(self.img1, cv2.COLOR_BGR2RGB)
-        # self.img2 = cv2.cvtColor(self.img2, cv2.COLOR_BGR2RGB)
 
         self.img_color_filt0, mask0 = color_filter(self.img0, [lower_thresh, upper_thresh])
         self.img_color_filt1, mask1 = color_filter(self.img1, [lower_thresh, upper_thresh])
