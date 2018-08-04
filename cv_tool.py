@@ -17,12 +17,26 @@ class App(QWidget):
         self.controller = Controller()
         self.title = 'CV Tool'
 
+        self.left = 10
+        self.top = 10
+        self.width = 1280
+        self.height = 720
+
         self.initUI()
 
     def initUI(self):
         self.setWindowTitle(self.title)
-
         self.main_layout = QVBoxLayout(self)
+        self.setGeometry(self.left, self.top, self.width, self.height)
+
+        if not self.controller.images:
+            self.load_images()
+        else:
+            self.updateUI()
+
+        self.showMaximized()
+
+    def updateUI(self):
         self.layouts()
         self.top_section()
         self.bottom_section()
@@ -31,8 +45,6 @@ class App(QWidget):
         self.side_buttons()
         # self.side_section()
         # self.side_connections()
-
-        self.showMaximized()
 
     def layouts(self):
         self.ll_top = QHBoxLayout()
@@ -46,9 +58,29 @@ class App(QWidget):
         self.ll_side_buttons = QVBoxLayout()
         self.ll_bot.addLayout(self.ll_side_buttons)
 
+    def load_images(self):
+        self.ll_prompt = QVBoxLayout()
+        self.main_layout.addLayout(self.ll_prompt)
+        self.btn_load_img = QPushButton('Load Image Folder')
+        self.btn_load_img.setMaximumSize(QtCore.QSize(1920, 100))
+        self.ll_prompt.addWidget(self.btn_load_img)
+        self.btn_load_img.clicked.connect(self.directory_dialog)
+
+    def directory_dialog(self):
+        directory = str(QFileDialog.getExistingDirectory(self, "Select Directory")) + '/'
+        self.controller.fetch_images(directory)
+        if self.controller.images:
+            self.updateUI()
+            self.remove_prompt()
+
+    def remove_prompt(self):
+        self.ll_prompt.removeWidget(self.btn_load_img)
+        self.btn_load_img.deleteLater()
+        self.btn_load_img = None
+
     def top_section(self):
-        self.display0 = QImage(self.controller.img0, self.controller.img_width, self.controller.img_height, self.controller.byteValue, QImage.Format_RGB888)
-        self.display1 = QImage(self.controller.img1, self.controller.img_width, self.controller.img_height, self.controller.byteValue, QImage.Format_RGB888)
+        self.display0 = QImage(self.controller.img0, self.controller.img_width0, self.controller.img_height0, self.controller.byteValue0, QImage.Format_RGB888)
+        self.display1 = QImage(self.controller.img1, self.controller.img_width1, self.controller.img_height1, self.controller.byteValue1, QImage.Format_RGB888)
 
         self.pixmap0 = QPixmap(self.display0)
         self.label0 = QLabel()
@@ -64,7 +96,7 @@ class App(QWidget):
         # LOWER RED
         self.red_layout = QVBoxLayout()
         self.ll_spinners.addLayout(self.red_layout, 0, 0)
-        self.red_label = QLabel('LOWER RED')
+        self.red_label = QLabel('Lower Red')
         self.red_label.setMaximumSize(QtCore.QSize(100, 20))
         self.red_label.setAlignment(QtCore.Qt.AlignCenter)
         self.spn_red = QSpinBox()
@@ -80,7 +112,7 @@ class App(QWidget):
         # LOWER GREEN
         self.green_layout = QVBoxLayout()
         self.ll_spinners.addLayout(self.green_layout, 0, 1)
-        self.green_label = QLabel('LOWER GREEN')
+        self.green_label = QLabel('Lower Green')
         self.green_label.setMaximumSize(QtCore.QSize(100, 20))
         self.green_label.setAlignment(QtCore.Qt.AlignCenter)
         self.spn_green = QSpinBox()
@@ -96,7 +128,7 @@ class App(QWidget):
         # LOWER BLUE
         self.blue_layout = QVBoxLayout()
         self.ll_spinners.addLayout(self.blue_layout, 0, 2)
-        self.blue_label = QLabel('LOWER BLUE')
+        self.blue_label = QLabel('Lower Blue')
         self.blue_label.setMaximumSize(QtCore.QSize(100, 20))
         self.blue_label.setAlignment(QtCore.Qt.AlignCenter)
         self.spn_blue = QSpinBox()
@@ -113,7 +145,7 @@ class App(QWidget):
         # UPPER RED
         self.upper_red_layout = QVBoxLayout()
         self.ll_spinners.addLayout(self.upper_red_layout, 1, 0)
-        self.upper_red_label = QLabel('UPPER RED')
+        self.upper_red_label = QLabel('Upper Red')
         self.upper_red_label.setMaximumSize(QtCore.QSize(100, 20))
         self.upper_red_label.setAlignment(QtCore.Qt.AlignCenter)
         self.spn_upper_red = QSpinBox()
@@ -129,7 +161,7 @@ class App(QWidget):
         # UPPER GREEN
         self.upper_green_layout = QVBoxLayout()
         self.ll_spinners.addLayout(self.upper_green_layout, 1, 1)
-        self.upper_green_label = QLabel('UPPER GREEN')
+        self.upper_green_label = QLabel('Upper Green')
         self.upper_green_label.setMaximumSize(QtCore.QSize(100, 20))
         self.upper_green_label.setAlignment(QtCore.Qt.AlignCenter)
         self.spn_upper_green = QSpinBox()
@@ -145,7 +177,7 @@ class App(QWidget):
         # UPPER BLUE
         self.upper_blue_layout = QVBoxLayout()
         self.ll_spinners.addLayout(self.upper_blue_layout, 1, 2)
-        self.upper_blue_label = QLabel('UPPER BLUE')
+        self.upper_blue_label = QLabel('Upper Blue')
         self.upper_blue_label.setMaximumSize(QtCore.QSize(100, 20))
         self.upper_blue_label.setAlignment(QtCore.Qt.AlignCenter)
         self.spn_upper_blue = QSpinBox()
@@ -159,11 +191,11 @@ class App(QWidget):
         self.upper_blue_layout.addWidget(self.spn_upper_blue)
 
     def side_buttons(self):
-        self.btn_mode = QPushButton('RGB')
-        self.btn_mode.setMaximumSize(QtCore.QSize(100, 100))
-        self.ll_side_buttons.addWidget(self.btn_mode)
+        self.btn_change_colorspace = QPushButton('RGB')
+        self.btn_change_colorspace.setMaximumSize(QtCore.QSize(100, 100))
+        self.ll_side_buttons.addWidget(self.btn_change_colorspace)
 
-        self.btn_apply = QPushButton('Apply Changes')
+        self.btn_apply = QPushButton('Apply')
         self.btn_apply.setMaximumSize(QtCore.QSize(100, 100))
         self.ll_side_buttons.addWidget(self.btn_apply)
 
@@ -200,9 +232,9 @@ class App(QWidget):
 
         self.display0 = QImage(
             self.controller.img_color_filt0,
-            self.controller.img_width,
-            self.controller.img_height,
-            self.controller.byteValue,
+            self.controller.img_width0,
+            self.controller.img_height0,
+            self.controller.byteValue0,
             QImage.Format_RGB888
         )
 
@@ -211,9 +243,9 @@ class App(QWidget):
 
         self.display1 = QImage(
             self.controller.img_color_filt1,
-            self.controller.img_width,
-            self.controller.img_height,
-            self.controller.byteValue,
+            self.controller.img_width1,
+            self.controller.img_height1,
+            self.controller.byteValue1,
             QImage.Format_RGB888
         )
 
