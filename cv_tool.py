@@ -47,9 +47,6 @@ class App(QWidget):
         self.ll_bot.addLayout(self.ll_side_buttons)
 
     def top_section(self):
-        # self.ll_top = QHBoxLayout()
-        # self.main_layout.addLayout(self.ll_top)
-
         self.display0 = QImage(self.controller.img0, self.controller.img_width, self.controller.img_height, self.controller.byteValue, QImage.Format_RGB888)
         self.display1 = QImage(self.controller.img1, self.controller.img_width, self.controller.img_height, self.controller.byteValue, QImage.Format_RGB888)
 
@@ -64,11 +61,6 @@ class App(QWidget):
         self.ll_top.addWidget(self.label1)
 
     def bottom_section(self):
-        # self.ll_spinners = QGridLayout()
-        # self.ll_spinners.setHorizontalSpacing(4)
-        # self.ll_spinners.setHorizontalSpacing(2)
-        # self.main_layout.addLayout(self.ll_spinners)
-
         # LOWER RED
         self.red_layout = QVBoxLayout()
         self.ll_spinners.addLayout(self.red_layout, 0, 0)
@@ -192,13 +184,13 @@ class App(QWidget):
 
     def spinner_update(self, is_lower):
         if is_lower:
-            self.controller.update_lower_bgr(
+            self.controller.update_lower_rgb(
                 self.spn_red.value(),
                 self.spn_green.value(),
                 self.spn_blue.value()
             )
         else:
-            self.controller.update_upper_bgr(
+            self.controller.update_upper_rgb(
                 self.spn_upper_red.value(),
                 self.spn_upper_green.value(),
                 self.spn_upper_blue.value()
