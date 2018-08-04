@@ -7,7 +7,6 @@ class Controller():
     def __init__(self):
         self.img0 = cv2.cvtColor(cv2.imread(r'./images/0.jpg'), cv2.COLOR_BGR2RGB)
         self.img1 = cv2.cvtColor(cv2.imread(r'./images/1.jpg'), cv2.COLOR_BGR2RGB)
-        self.img2 = cv2.cvtColor(cv2.imread(r'./images/2.jpg'), cv2.COLOR_BGR2RGB)
         self.img_height = 0
         self.img_width = 0
         self.byteValue = 0
@@ -37,5 +36,4 @@ class Controller():
 
         self.img_color_filt0, mask0 = color_filter(self.img0, [lower_thresh, upper_thresh])
         self.img_color_filt1, mask1 = color_filter(self.img1, [lower_thresh, upper_thresh])
-        self.img_color_filt2, mask2 = color_filter(self.img2, [lower_thresh, upper_thresh])
     

@@ -52,8 +52,6 @@ class App(QWidget):
 
         self.display0 = QImage(self.controller.img0, self.controller.img_width, self.controller.img_height, self.controller.byteValue, QImage.Format_RGB888)
         self.display1 = QImage(self.controller.img1, self.controller.img_width, self.controller.img_height, self.controller.byteValue, QImage.Format_RGB888)
-        self.display2 = QImage(self.controller.img2, self.controller.img_width, self.controller.img_height, self.controller.byteValue, QImage.Format_RGB888)
-
 
         self.pixmap0 = QPixmap(self.display0)
         self.label0 = QLabel()
@@ -64,13 +62,6 @@ class App(QWidget):
         self.label1 = QLabel()
         self.label1.setPixmap(self.pixmap1)
         self.ll_top.addWidget(self.label1)
-
-        self.pixmap2 = QPixmap(self.display2)
-        self.label2 = QLabel()
-        self.label2.setPixmap(self.pixmap2)
-        self.ll_top.addWidget(self.label2)
-
-        # self.top_connections()
 
     def bottom_section(self):
         # self.ll_spinners = QGridLayout()
@@ -237,16 +228,6 @@ class App(QWidget):
         self.pixmap1 = QPixmap(self.display1)
         self.label1.setPixmap(self.pixmap1)
 
-        self.display2 = QImage(
-            self.controller.img_color_filt2,
-            self.controller.img_width,
-            self.controller.img_height,
-            self.controller.byteValue,
-            QImage.Format_RGB888
-        )
-
-        self.pixmap2 = QPixmap(self.display2)
-        self.label2.setPixmap(self.pixmap2)        
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
