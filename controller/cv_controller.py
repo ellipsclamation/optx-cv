@@ -66,5 +66,5 @@ class Controller():
         upper_thresh = np.array(self.upper_rgb)
 
         self.img_color_filt0, mask0 = color_filter(self.img0, [lower_thresh, upper_thresh])
-        if self.img1:
+        if self.img1.size > 1:
             self.img_color_filt1, mask1 = color_filter(self.img1, [lower_thresh, upper_thresh])
