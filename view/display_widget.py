@@ -4,10 +4,9 @@ from PyQt5.QtGui import QImage, QPixmap
 
 class Display:
 
-    def __init__(self, layouts, controller, window):
+    def __init__(self, layouts, controller):
         self.layouts = layouts
         self.controller = controller
-        self.window = window
 
         self.display0 = QImage()
         self.display1 = QImage()
@@ -19,18 +18,14 @@ class Display:
 
     def create_display(self):
         self.label0 = QLabel()
-        self.label0.setMaximumSize(
-            int(self.window.frameGeometry().width()/2),
-            int(self.window.frameGeometry().height()/2)
-        )
+        self.label0.setMinimumSize(1024/2, 576/2)
+        self.label0.setMaximumSize(1920/2, 1080/2)
         self.label0.setScaledContents(True)
         self.layouts.ll_top.addWidget(self.label0)
 
         self.label1 = QLabel()
-        self.label1.setMaximumSize(
-            int(self.window.frameGeometry().width()/2),
-            int(self.window.frameGeometry().height()/2)
-        )
+        self.label1.setMinimumSize(1024/2, 576/2)
+        self.label1.setMaximumSize(1920/2, 1080/2)
         self.label1.setScaledContents(True)
         self.layouts.ll_top.addWidget(self.label1)
 
@@ -52,6 +47,7 @@ class Display:
             self.controller.byteValue1,
             QImage.Format_RGB888
         )
+
         self.pixmap0 = QPixmap(self.display0)
         self.pixmap1 = QPixmap(self.display1)
         self.label0.setPixmap(self.pixmap0)
