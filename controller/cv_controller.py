@@ -11,6 +11,7 @@ class Controller():
         self.images = None
         self.img0 = None
         self.img1 = None
+        self.img_index = 0
 
         self.img_height0 = 0
         self.img_width0 = 0
@@ -25,7 +26,6 @@ class Controller():
 
         self.img_color_filt0 = None
         self.img_color_filt1 = None
-        self.img_color_filt2 = None
 
         self.fetch_images()
 
@@ -38,14 +38,13 @@ class Controller():
             self.images = sorted(glob.glob(path + '*.jpg'), key=os.path.getsize)
         if self.images:
             self.set_images()
-            self.load_values()
+            # self.load_values()
 
     def set_images(self):
-        self.img0 = cv2.cvtColor(cv2.imread(self.images[0]), cv2.COLOR_BGR2RGB)
-        try:
-            self.img1 = cv2.cvtColor(cv2.imread(self.images[1]), cv2.COLOR_BGR2RGB)
-        except IndexError:
-            return
+        self.img0 = cv2.cvtColor(cv2.imread(self.images[self.img_index]), cv2.COLOR_BGR2RGB)
+        self.img1 = cv2.cvtColor(cv2.imread(self.images[(self.img_index + 1) % len(self.images)]), cv2.COLOR_BGR2RGB)
+
+        self.load_values()
 
     def load_values(self):
         self.img_height0, self.img_width0, self.byteValue0 = self.img0.shape
@@ -56,6 +55,12 @@ class Controller():
             self.byteValue1 = self.byteValue1 * self.img_width1
         except AttributeError:
             return
+
+    def cycle_img(self, amount=1):
+        amount = amount % len(self.images)
+        self.img_index = (self.img_index + amount) % len(self.images)
+        self.set_images()
+        self.filter()
 
     def update_lower_rgb(self, red, green, blue):
         self.lower_rgb = [red, green, red]
@@ -68,5 +73,4 @@ class Controller():
         upper_thresh = np.array(self.upper_rgb)
 
         self.img_color_filt0, mask0 = color_filter(self.img0, [lower_thresh, upper_thresh])
-        if self.img1.size > 1:
-            self.img_color_filt1, mask1 = color_filter(self.img1, [lower_thresh, upper_thresh])
+        self.img_color_filt1, mask1 = color_filter(self.img1, [lower_thresh, upper_thresh])
