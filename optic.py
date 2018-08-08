@@ -218,9 +218,9 @@ class App(QWidget):
         self.btn_down.setMaximumSize(QtCore.QSize(100, 100))
         self.ll_spinners.addWidget(self.btn_down, 1, 3)
 
-        self.btn_change_colorspace = QPushButton('RGB')
-        self.btn_change_colorspace.setMaximumSize(QtCore.QSize(100, 100))
-        self.ll_side_buttons.addWidget(self.btn_change_colorspace)
+        # self.btn_change_colorspace = QPushButton('RGB')
+        # self.btn_change_colorspace.setMaximumSize(QtCore.QSize(100, 100))
+        # self.ll_side_buttons.addWidget(self.btn_change_colorspace)
 
         self.btn_apply = QPushButton('Apply')
         self.btn_apply.setMaximumSize(QtCore.QSize(100, 100))
@@ -247,13 +247,13 @@ class App(QWidget):
 
     def spinner_update(self, is_lower):
         if is_lower:
-            self.controller.update_lower_rgb(
+            self.controller.update_lower_color(
                 self.spn_red.value(),
                 self.spn_green.value(),
                 self.spn_blue.value()
             )
         else:
-            self.controller.update_upper_rgb(
+            self.controller.update_upper_color(
                 self.spn_upper_red.value(),
                 self.spn_upper_green.value(),
                 self.spn_upper_blue.value()
