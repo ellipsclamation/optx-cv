@@ -3,7 +3,7 @@ import cv2
 
 
 def resize(img, scale):  # resize image to scale value param
-    return cv2.resize(img, (int(img.shape[1] * scale), int(img.shape[0] * scale) ) )
+    return cv2.resize(img, (int(img.shape[1] * scale), int(img.shape[0] * scale)))
 
 
 def scaled(img, scale):  # returns new scale value

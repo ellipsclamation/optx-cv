@@ -1,11 +1,12 @@
 import sys
 import cv2
-from functools import partial
-from PyQt5.QtWidgets import QApplication, QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtGui import QIcon, QImage, QPainter, QPixmap
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtGui import QColor
+# from functools import partial
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, \
+    QPushButton, QLabel, QFileDialog, QSpinBox
+from PyQt5 import QtCore
+from PyQt5.QtGui import QImage, QPixmap
+# from PyQt5.QtCore import pyqtSlot
+# from PyQt5.QtGui import QColor
 
 from controller.cv_controller import Controller
 
@@ -79,17 +80,34 @@ class App(QWidget):
         self.btn_load_img = None
 
     def top_section(self):
-        self.display0 = QImage(self.controller.img0, self.controller.img_width0, self.controller.img_height0, self.controller.byteValue0, QImage.Format_RGB888)
-        self.display1 = QImage(self.controller.img1, self.controller.img_width1, self.controller.img_height1, self.controller.byteValue1, QImage.Format_RGB888)
+        self.display0 = QImage(
+            self.controller.img0,
+            self.controller.img_width0,
+            self.controller.img_height0,
+            self.controller.byteValue0,
+            QImage.Format_RGB888
+        )
+
+        self.display1 = QImage(
+            self.controller.img1,
+            self.controller.img_width1,
+            self.controller.img_height1,
+            self.controller.byteValue1,
+            QImage.Format_RGB888
+        )
 
         self.pixmap0 = QPixmap(self.display0)
         self.label0 = QLabel()
         self.label0.setPixmap(self.pixmap0)
+        self.label0.setMaximumSize(int(self.frameGeometry().width()/2), int(self.frameGeometry().height()/2))
+        self.label0.setScaledContents(True)
         self.ll_top.addWidget(self.label0)
 
         self.pixmap1 = QPixmap(self.display1)
         self.label1 = QLabel()
         self.label1.setPixmap(self.pixmap1)
+        self.label1.setMaximumSize(int(self.frameGeometry().width()/2), int(self.frameGeometry().height()/2))
+        self.label1.setScaledContents(True)
         self.ll_top.addWidget(self.label1)
 
     def bottom_section(self):
@@ -235,7 +253,7 @@ class App(QWidget):
                 self.spn_upper_green.value(),
                 self.spn_upper_blue.value()
             )
-        
+
         self.controller.filter()
 
         self.display0 = QImage(
