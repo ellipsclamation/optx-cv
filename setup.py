@@ -2,9 +2,9 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name='cv_tool',
+    name='optic.py',
     version='0.1',
-    description='A tool using opencv for preprocessing images',
+    description='opencv preprocessing tool',
     author='Henry Ho',
     author_email='ellipsclamation@gmail.com',
     url='https://github.com/ellipsclamation/opencv_preprocessing_tool',

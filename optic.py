@@ -1,5 +1,5 @@
 import sys
-import cv2
+# import cv2
 # from functools import partial
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, \
     QPushButton, QLabel, QFileDialog, QSpinBox
