@@ -1,7 +1,7 @@
 import sys
 import cv2
 from functools import partial
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QApplication, QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QIcon, QImage, QPainter, QPixmap
 from PyQt5.QtCore import pyqtSlot

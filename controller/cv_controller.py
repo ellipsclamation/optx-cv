@@ -61,7 +61,7 @@ class Controller():
 
     def update_upper_rgb(self, red, green, blue):
         self.upper_rgb = [red, green, red]
-        
+
     def filter(self):
         lower_thresh = np.array(self.lower_rgb)
         upper_thresh = np.array(self.upper_rgb)
