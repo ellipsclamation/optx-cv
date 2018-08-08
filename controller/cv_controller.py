@@ -10,6 +10,7 @@ class Controller():
     def __init__(self):
         self.images = None
         self.img_index = 0
+        self.file_types = ['*.jpg', '*.jpeg', '*.png']
 
         # Left Image
         self.img0 = None
@@ -38,12 +39,13 @@ class Controller():
         pass
 
     def fetch_images(self, path='./images/', sorted_by='name'):
-        if sorted_by == 'name':
-            self.images = sorted(glob.glob(path + '*.jpg'))
-        elif sorted_by == 'time':
-            self.images = sorted(glob.glob(path + '*.jpg'), key=os.path.getmtime)
-        elif sorted_by == 'size':
-            self.images = sorted(glob.glob(path + '*.jpg'), key=os.path.getsize)
+        for file_type in self.file_types:
+            if sorted_by == 'name':
+                self.images = sorted(glob.glob(path + file_type))
+            elif sorted_by == 'time':
+                self.images = sorted(glob.glob(path + file_type), key=os.path.getmtime)
+            elif sorted_by == 'size':
+                self.images = sorted(glob.glob(path + file_type), key=os.path.getsize)
         if self.images:
             self.set_images()
 
