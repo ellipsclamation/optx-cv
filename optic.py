@@ -44,6 +44,7 @@ class App(QWidget):
         self.upper_bgr()
         self.bottom_connections()
         self.side_buttons()
+        self.side_buttons_connections()
         # self.side_section()
         # self.side_connections()
 
@@ -225,6 +226,10 @@ class App(QWidget):
         self.btn_apply.setMaximumSize(QtCore.QSize(100, 100))
         self.ll_side_buttons.addWidget(self.btn_apply)
 
+    def side_buttons_connections(self):
+        self.btn_up.clicked.connect(lambda: self.button_update(-1))
+        self.btn_down.clicked.connect(lambda: self.button_update(1))
+
     # def side_section(self):
     #     self.ll_side_buttons_buttons = QVBoxLayout()
     #     self.ll_spinners.addLayout(self.ll_side_buttons_buttons, 0, 3)
@@ -255,7 +260,13 @@ class App(QWidget):
             )
 
         self.controller.filter()
+        self.update_imgs()
 
+    def button_update(self, amount=1):
+        self.controller.cycle_img(amount)
+        self.update_imgs()
+
+    def update_imgs(self):
         self.display0 = QImage(
             self.controller.img_color_filt0,
             self.controller.img_width0,
