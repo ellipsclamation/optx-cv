@@ -25,3 +25,9 @@ class InterestRegions(Module):
         # interest_regions = [b for b in boxes if b[2]*b[3] > roi_size]
 
         # return interest_regions
+    
+    def btn_clicked(self):
+        pass
+
+    def process(self, image, lower_color, upper_color):
+        pass
