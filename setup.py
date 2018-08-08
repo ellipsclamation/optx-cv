@@ -1,5 +1,4 @@
-from setuptools import setup, find_packages
-
+from setuptools import setup
 
 setup(
     name='optx-cv',
@@ -8,5 +7,6 @@ setup(
     author='Henry Ho',
     author_email='ellipsclamation@gmail.com',
     url='https://github.com/ellipsclamation/opencv_preprocessing_tool',
-    packages=find_packages(exclude=('tests', 'docs'))
+    packages=['controller', 'view', 'modules', 'images'],
+    install_requires=['opencv-python', 'PyQt5', 'numpy']
 )
