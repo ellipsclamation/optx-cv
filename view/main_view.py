@@ -44,5 +44,5 @@ class MainView:
 
     def loadUI(self):
         self.layouts = Layouts(self.main_layout)
-        self.display = Display(self.layouts, self.controller, self.window)
+        self.display = Display(self.layouts, self.controller)
         self.tools = Tools(self.layouts, self.controller, self.display)
