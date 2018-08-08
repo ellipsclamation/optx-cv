@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name='optic.py',
+    name='optx-cv',
     version='0.1',
     description='opencv preprocessing tool',
     author='Henry Ho',
