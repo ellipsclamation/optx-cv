@@ -46,7 +46,6 @@ class Controller():
             self.images = sorted(glob.glob(path + '*.jpg'), key=os.path.getsize)
         if self.images:
             self.set_images()
-            # self.load_values()
 
     def set_images(self):
         self.img0 = cv2.cvtColor(cv2.imread(self.images[self.img_index]), cv2.COLOR_BGR2RGB)
