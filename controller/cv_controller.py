@@ -56,11 +56,11 @@ class Controller():
         except AttributeError:
             return
 
-    def update_lower_rgb(self, blue, green, red):
-        self.lower_rgb = [blue, green, red]
+    def update_lower_rgb(self, red, green, blue):
+        self.lower_rgb = [red, green, red]
 
-    def update_upper_rgb(self, blue, green, red):
-        self.upper_rgb = [blue, green, red]
+    def update_upper_rgb(self, red, green, blue):
+        self.upper_rgb = [red, green, red]
         
     def filter(self):
         lower_thresh = np.array(self.lower_rgb)
